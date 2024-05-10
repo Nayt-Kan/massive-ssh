@@ -1,7 +1,5 @@
 #!/bin/bash
 
-# Поменять местами scp и scp запросы
-
 #==||clearing logs files||==#
 
 rm resolts.log 2>/dev/null
@@ -26,11 +24,12 @@ Try 'N_mssh.sh -h' for more information. \n\
 hosts=hosts.txt
 d_port=2222
 d_user=user
-timeout=1
+timeout=10
 max_threads=5
 
-ssh_id=/home/user/.ssh/id_rsa
+#ssh_id=/home/user/.ssh/id_rsa
 #ssh_id=~/.ssh/id_rsa
+ssh_id=$HOME/.ssh/id_rsa
 
 #==||reading variables||==#
 
@@ -117,7 +116,7 @@ then
   #==||scp||==#
   if [ -n "$mcp" ]
   then
-    scp -o ConnectTimeout=$timeout -P $port -i $ssh_id $from $user@$host:$to >>resolts.log 2>&1
+    scp -o ConnectTimeout=$timeout -P $port -i $ssh_id $from $user@$host':'$to >>resolts.log 2>&1
   [ $? != 0 ] && sc=203 || echo "scp for line $j ready"
   fi
   #==||ssh||==#
