@@ -2,10 +2,10 @@
 
 #==||clearing logs files||==#
 
-rm resolts.log 2>/dev/null
-rm errors.log 2>/dev/null
-rm wrong_host.log 2>/dev/null
-rm timeout.log 2>/dev/null
+> results.log
+> errors.log
+> wrong_host.log
+> timeout.log
 
 #==||messages||==#
 
@@ -116,13 +116,13 @@ then
   #==||scp||==#
   if [ -n "$mcp" ]
   then
-    scp -o ConnectTimeout=$timeout -P $port -i $ssh_id $from $user@$host':'$to >>resolts.log 2>&1
+    scp -o ConnectTimeout=$timeout -P $port -i $ssh_id $from $user@$host':'$to &>>results.log
   [ $? != 0 ] && sc=203 || echo "scp for line $j ready"
   fi
   #==||ssh||==#
   if [ -n "$msh" ]
   then
-    ssh -o ConnectTimeout=$timeout -p $port -i $ssh_id $user@$host $shcmd >>results.log 2>&1
+    ssh -o ConnectTimeout=$timeout -p $port -i $ssh_id $user@$host $shcmd &>>results.log
     [ $? != 0 ] && sc=202 || echo "ssh for line $j redy"
   fi
 fi
