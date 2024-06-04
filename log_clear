@@ -1,6 +1,6 @@
 #!/bin/bash
 
->results.log
->errors.log
->wrong_host.log
->timeout.log
+rm results.log
+rm errors.log
+rm wrong_host.log
+rm timeout.log
